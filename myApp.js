@@ -8,6 +8,7 @@ app.use(express.static(__dirname + "/public"))
 
 console.log("Hello World");
 app.get("/",(req, res)=>res.sendFile(absolutePath));
+app.get("/json",(req, res)=> if(process.env.MESSAGE_STYLE == uppercase) {res.json({"message": response})});
 
 // --> 7)  Mount the Logger middleware here
 
