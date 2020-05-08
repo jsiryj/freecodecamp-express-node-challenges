@@ -5,14 +5,20 @@ var app = express();
 let absolutePath = __dirname + "/views/index.html"
 
 app.use(function(req, res, next) {
-  console.log(`${req.method}  ${req.path} - ${req.ip}`)
-  next()
+  console.log(req.method + ' ' +  req.path + ' - ' + req.ip);
+  next();
 });
-app.use(express.static(__dirname + "/public"))
+app.use(express.static(__dirname + "/public"));
 
 console.log("Hello World");
 app.get("/json",(req, res)=> res.json({"message": process.env.MESSAGE_STYLE === "uppercase"?"Hello json".toUpperCase():"Hello json"}));
 app.get("/",(req, res)=>res.sendFile(absolutePath));
+app.get("/now", (req, res, next) => {
+  req.time = new Date().toString();
+  next();
+}, (req, res) => {
+  res.send({time: req.time})
+})
 
 // --> 7)  Mount the Logger middleware here
 
