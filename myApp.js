@@ -20,6 +20,10 @@ app.get("/now", (req, res, next) => {
   res.send({time: req.time})
 })
 app.get("/:word/echo",(req, res)=>res.send({echo:req.params.word}));
+app.get("/name",(req, res)=>{
+  var {first: firstName, last: lastName} = req.query;
+  res.send({`$first ${last}`})
+});
 
 // --> 7)  Mount the Logger middleware here
 
