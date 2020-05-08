@@ -1,6 +1,7 @@
 
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser')
 
 let absolutePath = __dirname + "/views/index.html"
 
@@ -21,8 +22,8 @@ app.get("/now", (req, res, next) => {
 })
 app.get("/:word/echo",(req, res)=>res.send({echo:req.params.word}));
 app.get("/name",(req, res)=>{
-  var {first: firstName, last: lastName} = req.query;
-  res.send({`$first ${last}`})
+  const {first: firstName, last: lastName} = req.query;
+  res.send({name: `${firstName} ${lastName}`});
 });
 
 // --> 7)  Mount the Logger middleware here
