@@ -4,7 +4,8 @@ var app = express();
 var bodyParser = require('body-parser')
 
 let absolutePath = __dirname + "/views/index.html"
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(function(req, res, next) {
   console.log(req.method + ' ' +  req.path + ' - ' + req.ip);
   next();
@@ -23,6 +24,10 @@ app.get("/now", (req, res, next) => {
 app.get("/:word/echo",(req, res)=>res.send({echo:req.params.word}));
 app.get("/name",(req, res)=>{
   const {first: firstName, last: lastName} = req.query;
+  res.send({name: `${firstName} ${lastName}`});
+});
+app.post("/name",(req, res)=>{
+  const {first: firstName, last: lastName} = req.body;
   res.send({name: `${firstName} ${lastName}`});
 });
 
